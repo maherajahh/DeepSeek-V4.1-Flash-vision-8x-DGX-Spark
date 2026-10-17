@@ -21,7 +21,7 @@ Order is load-bearing. Do not reorder in public posts.
 
 ## 4. Engine
 
-- vLLM `dsv41-feat` / nightly pins — recorded in `pins.md` when we have a live image
+- vLLM overlay5 on spark1 (`pins.md`): `vllm-dsv41:overlay5` `sha256:c92feb5ffab6…`
 - FlashInfer SM120/SM121 kernels as used by Tony’s overlay
 
 ## 5. This notebook

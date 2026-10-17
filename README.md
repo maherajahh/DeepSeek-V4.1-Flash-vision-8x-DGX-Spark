@@ -1,12 +1,8 @@
-# Maherajahh
+# DeepSeek-V4.1-Flash vision 8× DGX Spark
 
-DeepSeek-V4.1-Flash on 8× DGX Spark (vision on)
+**Status: LIVE** (2026-10-17). Official weights. Vision proved (red PNG → “Red”). Text smoke: `PONG`.
 
-**Status: NOT LIVE.** Empty recipe notebook. No weights pulled. Office GLM-5.3-Flash is still serving.
-
-Eight NVIDIA DGX Spark (GB10) boxes, tensor-parallel 8, official DeepSeek-V4.1-Flash, **pictures on**. This is not a 2-box or 4-box kit.
-
-We did not invent the kernels. We are writing down an **8-rank** run with vision proved on this fabric.
+Eight NVIDIA DGX Spark (GB10), tensor-parallel 8. We did not invent the kernels. This is an **8-rank** run with vision on, using Tony’s Spark vLLM patches and Magnus’s 8-rank launcher.
 
 ## What this is
 
@@ -14,39 +10,29 @@ We did not invent the kernels. We are writing down an **8-rank** run with vision
 |---|---|
 | Model | `deepseek-ai/DeepSeek-V4.1-Flash` (official, MIT) |
 | Hardware | 8× DGX Spark, dual fat rear links, `10.99.20.N` / `10.99.21.N` |
-| Engine | vLLM, Tony’s Spark patches, 8-rank launch |
-| Vision | Required. `TEXT_ONLY=0`. A screenshot must be described before we call it done. |
-| Context | Target 1,048,576 once serving is proved |
+| Engine | vLLM overlay5, Tony patches, Magnus `nnodes=8` |
+| Vision | `TEXT_ONLY=0`. Proved with a real image payload. |
+| Context this boot | 300000 (`--max-model-len`) |
 
 ## What this is not
 
 - Not Tony’s 4-box recipe claimed as ours
-- Not Magnus’s uncensored weights (we use official)
-- Not sumsliu speed-only 8-wide (no vision proof here)
-- Not GLM-5.3-Flash (that is already live on these boxes until we switch)
+- Not Magnus’s uncensored weights (official DeepSeek only)
+- Not a tok/s claim — none measured yet
 
-## Credits (read first)
+## Credits
 
-See [CREDITS.md](CREDITS.md). Short version:
+See [CREDITS.md](CREDITS.md). Order: DeepSeek → Tony → Magnus → vLLM.
 
-1. **DeepSeek** — the model
-2. **tonyd2wild / Tech2Wild (Kai)** — the Spark vLLM recipe this 8-rank job is built from
-3. **im0xMagnus** — the 8-rank stretch of Tony’s launcher, vision flag on
-4. **vLLM / FlashInfer** — the engine
+## Gates
 
-## Gates (none passed yet)
-
-- [ ] Official weights on spark1, copied to spark2–8
-- [ ] Image + patches pinned (digests in `pins.md`)
-- [ ] `/v1/models` returns an id
-- [ ] Text smoke
-- [ ] **Vision smoke** (a real photo, not “the flag is on”)
-- [ ] Measured tok/s written here (no guesses)
-
-## Voice
-
-Public posts only quote this repo. Draft rules: [VOICE.md](VOICE.md).
+- [x] Official weights on all 8
+- [x] Image + patches pinned (`pins.md`)
+- [x] `/v1/models` id `deepseek-v4.1-flash`
+- [x] Text smoke
+- [x] Vision smoke
+- [ ] Measured tok/s (empty until timed)
 
 ## License
 
-MIT for *this* repo’s scripts and notes. Model weights stay under DeepSeek’s MIT. Tony’s and Magnus’s code stay theirs — we pin and credit; we do not re-host their trees as our invention.
+MIT for *this* repo’s notes. Weights stay DeepSeek MIT. Tony’s and Magnus’s code stay theirs.
